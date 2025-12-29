@@ -30,10 +30,10 @@ const ProjectItem = ({ title, category, year, index }) => {
 
 const Projects = () => {
     const works = [
-        { title: 'E-Commerce Platform', category: 'Development', year: '2024' },
-        { title: 'Admin Dashboard', category: 'Internal Tool', year: '2024' },
-        { title: 'Portfolio Pro', category: 'Design & Code', year: '2025' },
-        { title: 'Task Master App', category: 'Product', year: '2023' },
+        { title: 'E-Commerce ', category: 'Development' },
+        { title: 'People-Pulse', category: 'Internal Tool' },
+        { title: 'cobenoinfotech ', category: 'Design & Code' },
+        { title: 'seyonexim', category: 'Product' },
     ];
 
     return (
@@ -54,7 +54,7 @@ const Projects = () => {
             </div>
 
             <div className='mt-16 text-center'>
-                <a href="https://github.com/pari" className='inline-block border border-white/30 px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300 uppercase tracking-widest text-sm'>
+                <a href="https://github.com/pariarul" className='inline-block border border-white/30 px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300 uppercase tracking-widest text-sm'>
                     View All Archives
                 </a>
             </div>

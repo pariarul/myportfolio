@@ -31,7 +31,7 @@ const Navbar = () => {
                         <a
                             key={link.name}
                             href={link.href}
-                            className='text-sm font-medium uppercase tracking-widest text-white relative group'
+                            className='text-sm font-medium uppercase tracking-widest text-white relative group hover:text-yellow-400 transition-colors'
                         >
                             {link.name}
                             <span className='absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full'></span>

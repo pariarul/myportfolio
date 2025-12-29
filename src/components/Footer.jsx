@@ -10,9 +10,9 @@ const Footer = () => {
                 </div>
 
                 <div className='flex gap-8'>
-                    <a href="https://github.com/pari" className='text-sm uppercase tracking-widest hover:underline decoration-1 underline-offset-4'>GitHub</a>
-                    <a href="https://linkedin.com/in/pari" className='text-sm uppercase tracking-widest hover:underline decoration-1 underline-offset-4'>LinkedIn</a>
-                    <a href="mailto:pari.dev@gmail.com" className='text-sm uppercase tracking-widest hover:underline decoration-1 underline-offset-4'>Email</a>
+                    <a href="https://github.com/pariarul" className='text-sm uppercase tracking-widest hover:underline decoration-1 underline-offset-4'>GitHub</a>
+                    <a href="https://www.linkedin.com/in/pari-arul-ab874b358/" className='text-sm uppercase tracking-widest hover:underline decoration-1 underline-offset-4'>LinkedIn</a>
+                    <a href="mailto:pariaarul@gmail.com" className='text-sm uppercase tracking-widest hover:underline decoration-1 underline-offset-4'>Email</a>
                 </div>
 
                 <div className='text-xs text-secondary font-mono'>
