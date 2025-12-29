@@ -31,9 +31,6 @@ const skills = [
   { name: 'JavaScript', icon: <FaJs />, color: '#F7DF1E' },
   { name: 'React', icon: <FaReact />, color: '#61DAFB' },
 
-  { name: 'Java', icon: <FaJava />, color: '#ED8B00' },
-  { name: 'Spring Boot', icon: <SiSpringboot />, color: '#6DB33F' },
-
   { name: 'Node.js', icon: <FaNodeJs />, color: '#339933' },
   { name: 'Express', icon: <SiExpress />, color: '#ffffff' },
   { name: 'MongoDB', icon: <SiMongodb />, color: '#47A248' },
