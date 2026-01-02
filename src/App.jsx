@@ -9,6 +9,8 @@ import Footer from './components/Footer';
 import ThreeBackground from './components/ThreeBackground';
 import SmoothScroll from './components/SmoothScroll';
 
+import AIIntegration from './components/AIIntegration';
+
 function App() {
   return (
     <Suspense fallback={<div className="bg-black w-full h-screen text-white flex items-center justify-center">Loading 3D Assets...</div>}>
@@ -19,6 +21,7 @@ function App() {
           <Hero />
           <About />
           <Skills />
+          <AIIntegration />
           <Projects />
           <Contact />
           <Footer />

@@ -50,8 +50,8 @@ const About = () => {
               experiences that are fast, functional, and visually engaging.
             </p>
             <p>
-              With expertise in React, Node.js, and modern CSS, I focus on
-              performance, accessibility, and clean UI systems that scale.
+              With expertise in React, Node.js, and AI-driven systems, I focus on
+              performance, accessibility, and intelligent UI systems that scale.
             </p>
           </motion.div>
 
