@@ -1,121 +1,139 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-
-/* =======================
-   ANIMATION VARIANTS
-======================= */
-const nameVariant = {
-  hidden: { y: 100, opacity: 0 },
-  visible: (i = 1) => ({
-    y: 0,
-    opacity: 1,
-    transition: { delay: i * 0.3, type: 'spring', stiffness: 100 },
-  }),
-};
-
-const textVariant = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i = 1) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.2, duration: 0.8, ease: 'easeOut' },
-  }),
-};
-
-const dotVariant = {
-  animate: {
-    scale: [1, 1.5, 1],
-    rotate: [0, 45, 0],
-    transition: { repeat: Infinity, duration: 1.5, ease: 'easeInOut' },
-  },
-};
+import React, { useEffect, useState, useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
 
 const Hero = () => {
+  const containerRef = useRef(null);
+  const { scrollY } = useScroll();
+
+  // Parallax logic
+  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
+  const y2 = useTransform(scrollY, [0, 500], [0, -150]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  const scale = useTransform(scrollY, [0, 300], [1, 0.8]);
+
+  // Mouse tracking for magnetic effect
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { damping: 20, stiffness: 100 });
+  const springY = useSpring(mouseY, { damping: 20, stiffness: 100 });
+
+  const moveX = useTransform(springX, [0, 1000], [-40, 40]);
+  const moveY = useTransform(springY, [0, 1000], [-40, 40]);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
+
   return (
-    <div id="home" className="relative w-full h-screen flex items-center overflow-hidden mt-10">
-      <div className="max-w-[1600px] w-full mx-auto px-6 md:px-12">
+    <section
+      id="home"
+      ref={containerRef}
+      className="relative w-full h-[110vh] flex items-center justify-center overflow-hidden bg-[#050505]"
+    >
+      {/* Background Layers */}
+      <div className="absolute inset-0 z-0">
+        <motion.div
+          style={{ y: y1 }}
+          className="absolute top-[10%] left-[5%] w-[60vw] h-[60vw] bg-yellow-500/[0.03] blur-[120px] rounded-full"
+        />
+        <motion.div
+          style={{ y: y2 }}
+          className="absolute bottom-[10%] right-[5%] w-[50vw] h-[50vw] bg-blue-600/[0.03] blur-[150px] rounded-full"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:5rem_5rem]" />
+      </div>
 
-        {/* ====== NAME ====== */}
-        <motion.h1
-          custom={0}
-          variants={nameVariant}
-          initial="hidden"
-          animate="visible"
-          className="text-[15vw] leading-[0.8] font-bold tracking-tighter text-yellow-400"
+      {/* Main Content */}
+      <motion.div
+        style={{ opacity, scale, x: moveX, y: moveY }}
+        className="relative z-10 flex flex-col items-center select-none"
+      >
+        {/* Available Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-10"
         >
-          PARI
-        </motion.h1>
-
-        <motion.h1
-          custom={1}
-          variants={nameVariant}
-          initial="hidden"
-          animate="visible"
-          className="text-[15vw] leading-[0.8] font-bold tracking-tighter text-white ml-[10vw]"
-        >
-          ARUL
-        </motion.h1>
-
-        {/* ====== DESCRIPTION ====== */}
-        <div className="flex flex-col md:flex-row justify-between items-end  pt-8 mt-12">
-          {/* Description text */}
-          <motion.p
-            initial="hidden"
-            animate="visible"
-            variants={textVariant}
-            custom={0}
-            className="text-xl md:text-2xl text-white max-w-xl font-light leading-snug"
-          >
-            I'm a <span className="font-bold">Full Stack Developer</span>,{' '}
-            <span className="font-bold">Designer</span>, and{' '}
-            <span className="font-bold">Problem Solver</span>.
-          </motion.p>
-
-          {/* Tech stack dots */}
           <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={textVariant}
-            custom={1}
-            className="flex gap-4 mt-8 md:mt-0 items-center text-white"
+            whileHover={{ scale: 1.05, borderColor: 'rgba(255,255,255,0.3)' }}
+            whileTap={{ scale: 0.95 }}
+            className="group relative flex items-center gap-3 px-6 py-2 border border-white/10 rounded-full bg-white/5 backdrop-blur-md overflow-hidden cursor-pointer transition-colors"
           >
-            {['mongodb', 'expressjs', 'reactjs', 'nodejs'].map((tech, i) => (
-              <motion.div
-                key={i}
-                className="flex items-center gap-2"
-                animate={{
-                  y: [0, -6, 0],
-                  opacity: [0.7, 1, 0.7],
-                }}
-                transition={{
-                  delay: i * 0.2,
-                  repeat: Infinity,
-                  duration: 1.5,
-                  ease: 'easeInOut',
-                }}
-              >
-                <motion.div
-                  className="w-2 h-2 bg-yellow-400 rounded-full shadow-lg"
-                  variants={dotVariant}
-                  animate="animate"
-                />
-                <span className="font-mono text-xs uppercase tracking-widest text-white/70 hover:text-yellow-400 transition-colors duration-300">
-                  {tech}
-                </span>
-              </motion.div>
-            ))}
+            <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse relative z-10" />
+            <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-white/50 group-hover:text-white transition-colors relative z-10">
+              Available for hire
+            </span>
           </motion.div>
+        </motion.div>
+
+        {/* Name Headline */}
+        <div className="flex flex-col items-start translate-x-[-5vw]">
+          <div className="relative">
+            <motion.h1
+              initial={{ x: -100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              className="text-[18vw] md:text-[15vw] font-black leading-[0.75] tracking-tighter text-yellow-400"
+            >
+              PARI
+            </motion.h1>
+          </div>
+          <div className="relative mt-[-2vw] ml-[15vw]">
+            <motion.h1
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="text-[18vw] md:text-[15vw] font-black leading-[0.75] tracking-tighter text-white"
+            >
+              ARUL
+            </motion.h1>
+            {/* Decorative Outlined Text */}
+            <motion.h1
+              style={{ x: useTransform(springX, [0, 1000], [20, -20]) }}
+              className="absolute -top-1 -left-1 text-[18vw] md:text-[15vw] font-black leading-[0.75] tracking-tighter text-stroke opacity-30 pointer-events-none"
+            >
+              ARUL
+            </motion.h1>
+          </div>
         </div>
 
-        {/* ====== FLOATING BACKGROUND EFFECT ====== */}
-        <motion.div
-          className="absolute top-10 left-0 w-full h-full pointer-events-none"
-          animate={{ y: [0, -10, 0] }}
-          transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-        />
 
+      </motion.div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.5 }}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 group cursor-pointer"
+      >
+        <span className="text-[10px] font-mono uppercase tracking-[0.5em] text-white/20 group-hover:text-white transition-colors">Scroll</span>
+        <div className="relative w-[1px] h-24 bg-white/10 overflow-hidden">
+          <motion.div
+            animate={{ y: ['-100%', '100%'] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            className="absolute inset-0 bg-gradient-to-b from-transparent via-yellow-400 to-transparent"
+          />
+        </div>
+      </motion.div>
+
+      {/* Location Label */}
+      <div className="absolute top-1/2 left-10 md:left-20 -translate-y-1/2 hidden lg:block">
+        <div className="flex flex-col gap-10">
+          <div className="rotate-[270deg] origin-left whitespace-nowrap">
+            <p className="text-[10px] uppercase tracking-[0.6em] font-mono text-white/10">Based in Tamil Nadu, IN</p>
+          </div>
+          <div className="w-[1px] h-20 bg-white/10 mx-auto" />
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
