@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import { FaReact, FaNodeJs } from 'react-icons/fa';
+import { SiMongodb, SiExpress, SiTailwindcss } from 'react-icons/si';
 
 const Hero = () => {
   const containerRef = useRef(null);
@@ -10,6 +12,9 @@ const Hero = () => {
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
   const scale = useTransform(scrollY, [0, 300], [1, 0.8]);
+
+  // Background Marquee Transform
+  const marqueeX = useTransform(scrollY, [0, 1000], [0, -500]);
 
   // Mouse tracking for magnetic effect
   const mouseX = useMotionValue(0);
@@ -29,6 +34,13 @@ const Hero = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [mouseX, mouseY]);
 
+  const techIcons = [
+    { Icon: FaReact, color: '#61DAFB', top: '15%', left: '15%', delay: 0 },
+    { Icon: FaNodeJs, color: '#339933', top: '25%', right: '15%', delay: 0.2 },
+    { Icon: SiMongodb, color: '#47A248', bottom: '25%', left: '12%', delay: 0.4 },
+    { Icon: SiTailwindcss, color: '#06B6D4', bottom: '35%', right: '12%', delay: 0.6 },
+  ];
+
   return (
     <section
       id="home"
@@ -36,7 +48,7 @@ const Hero = () => {
       className="relative w-full h-[110vh] flex items-center justify-center overflow-hidden bg-[#050505]"
     >
       {/* Background Layers */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 text-white">
         <motion.div
           style={{ y: y1 }}
           className="absolute top-[10%] left-[5%] w-[60vw] h-[60vw] bg-yellow-500/[0.03] blur-[120px] rounded-full"
@@ -45,6 +57,42 @@ const Hero = () => {
           style={{ y: y2 }}
           className="absolute bottom-[10%] right-[5%] w-[50vw] h-[50vw] bg-blue-600/[0.03] blur-[150px] rounded-full"
         />
+
+        {/* Background Marquee Text */}
+        <motion.div
+          style={{ x: marqueeX }}
+          className="absolute top-[40%] left-0 whitespace-nowrap opacity-[0.02] select-none pointer-events-none"
+        >
+          <span className="text-[25vw] font-black tracking-tighter uppercase italic">
+            Full Stack Developer • MERN Stack • React Expert •
+          </span>
+          <span className="text-[25vw] font-black tracking-tighter uppercase italic">
+            Full Stack Developer • MERN Stack • React Expert •
+          </span>
+        </motion.div>
+
+        {/* Floating Icons */}
+        {techIcons.map((item, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 0.2, scale: 1 }}
+            transition={{ duration: 1, delay: item.delay }}
+            style={{
+              position: 'absolute',
+              top: item.top,
+              left: item.left,
+              right: item.right,
+              bottom: item.bottom,
+              x: useTransform(springX, [0, 1000], [index % 2 ? 30 : -30, index % 2 ? -30 : 30]),
+              y: useTransform(springY, [0, 1000], [index % 2 ? -30 : 30, index % 2 ? 30 : -30])
+            }}
+            className="text-4xl md:text-6xl"
+          >
+            <item.Icon color={item.color} />
+          </motion.div>
+        ))}
+
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:5rem_5rem]" />
       </div>
 
@@ -104,7 +152,40 @@ const Hero = () => {
           </div>
         </div>
 
+        {/* Professional Roles & CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-12 flex flex-col items-center gap-10"
+        >
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+            <div className="flex items-center gap-4 text-white/30 font-mono text-[10px] md:text-sm tracking-[0.3em] uppercase">
+              <motion.span whileHover={{ color: '#FACC15' }} className="cursor-default transition-colors">Full Stack Developer</motion.span>
+              <span className="w-1 h-1 rounded-full bg-yellow-400/50" />
+              <motion.span whileHover={{ color: '#FACC15' }} className="cursor-default transition-colors">React Developer</motion.span>
+              <span className="w-1 h-1 rounded-full bg-yellow-400/50" />
+              <motion.span whileHover={{ color: '#FACC15' }} className="cursor-default transition-colors">MERN Developer</motion.span>
+            </div>
+          </div>
 
+          {/* New Premium Primary CTA */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="group relative px-10 py-4 bg-white text-black font-bold uppercase tracking-widest text-xs overflow-hidden rounded-full transition-all duration-300 hover:bg-yellow-400"
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              Explore Projects
+              <motion.span
+                animate={{ x: [0, 5, 0] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+              >
+                →
+              </motion.span>
+            </span>
+          </motion.button>
+        </motion.div>
       </motion.div>
 
       {/* Scroll Indicator */}
