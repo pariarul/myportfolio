@@ -85,19 +85,44 @@ const About = () => {
               </motion.h2>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, delay: 0.2 }}
-              className="space-y-10 text-2xl md:text-4xl text-white/40 font-light leading-[1.15] tracking-tight"
-            >
-              <p>
-                Based in <span className="text-white font-medium">Coimbatore</span>, I leverage code as a medium to create immersive, high-performance web ecosystems.
-              </p>
-              <p>
-                My approach synthesizes <span className="text-white font-medium italic underline decoration-blue-500/30 underline-offset-8">technical precision</span> with visceral aesthetic appeal.
-              </p>
-            </motion.div>
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 1.2, delay: 0.2 }}
+  className="space-y-10 text-2xl md:text-4xl text-white/40 font-light leading-[1.15] tracking-tight"
+>
+  <p>
+    Hi, I’m <span className="text-white font-medium">Pari</span>, a
+    <span className="text-white font-medium"> Full Stack Developer</span> based in
+    <span className="text-white font-medium"> Tamil Nadu, India</span>.
+  </p>
+
+  <p>
+    I’m from Coimbatore and I build modern, user-friendly web applications.
+  </p>
+
+  <p>
+    I work on <span className="text-white font-medium">frontend and backend</span> development with a focus on clean and maintainable code.
+  </p>
+
+  <p>
+    I build <span className="text-white font-medium">end-to-end web solutions</span> including responsive websites and secure APIs.
+  </p>
+
+  <p>
+    I have experience deploying projects on
+    <span className="text-white font-medium"> shared hosting</span>,
+    <span className="text-white font-medium"> VPS</span>, and
+    <span className="text-white font-medium"> cloud platforms</span>.
+  </p>
+
+  <p>
+    I integrate <span className="text-white font-medium">AI-powered features</span> into web applications to improve functionality.
+  </p>
+</motion.div>
+
+
+
 
             {/* Experience Matrix */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-12 md:gap-20 pt-20 border-t border-white/10">
