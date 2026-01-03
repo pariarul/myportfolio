@@ -9,6 +9,7 @@ import {
   FaGitAlt,
   FaDocker,
   FaGithub,
+  FaJava,
 } from 'react-icons/fa';
 import {
   SiTailwindcss,
@@ -18,6 +19,7 @@ import {
   SiJsonwebtokens,
   SiNextdotjs,
   SiMysql,
+  SiSpringboot,
 } from 'react-icons/si';
 import { VscJson } from 'react-icons/vsc';
 
