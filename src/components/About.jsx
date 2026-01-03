@@ -35,7 +35,8 @@ const About = () => {
               <img
                 src={profileImg}
                 alt="Pari Profile"
-                className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-[1.5s] ease-out-expo scale-110 group-hover:scale-100"
+                className="w-full h-full object-cover grayscale-0 brightness-100 scale-100 group-hover:grayscale group-hover:brightness-75 group-hover:scale-110 transition-all duration-[1.5s] ease-out-expo"
+
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
 

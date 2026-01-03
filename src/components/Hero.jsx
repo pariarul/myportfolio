@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
-import { FaReact, FaNodeJs } from 'react-icons/fa';
-import { SiMongodb, SiExpress, SiTailwindcss } from 'react-icons/si';
+import { motion, useScroll, useTransform, useSpring, useMotionValue, useAnimationFrame } from 'framer-motion';
+import { FaReact, FaNodeJs, FaChevronRight } from 'react-icons/fa';
+import { SiMongodb, SiExpress, SiTailwindcss, SiJavascript } from 'react-icons/si';
 
 const Hero = () => {
   const containerRef = useRef(null);
@@ -22,33 +22,46 @@ const Hero = () => {
   const springX = useSpring(mouseX, { damping: 20, stiffness: 100 });
   const springY = useSpring(mouseY, { damping: 20, stiffness: 100 });
 
-  const moveX = useTransform(springX, [0, 1000], [-40, 40]);
-  const moveY = useTransform(springY, [0, 1000], [-40, 40]);
+  const moveX = useTransform(springX, [0, 1000], [-30, 30]);
+  const moveY = useTransform(springY, [0, 1000], [-30, 30]);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
+      const { innerWidth, innerHeight } = window;
+      mouseX.set(e.clientX - innerWidth / 2);
+      mouseY.set(e.clientY - innerHeight / 2);
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [mouseX, mouseY]);
 
   const techIcons = [
-    { Icon: FaReact, color: '#61DAFB', top: '15%', left: '15%', delay: 0 },
-    { Icon: FaNodeJs, color: '#339933', top: '25%', right: '15%', delay: 0.2 },
-    { Icon: SiMongodb, color: '#47A248', bottom: '25%', left: '12%', delay: 0.4 },
-    { Icon: SiTailwindcss, color: '#06B6D4', bottom: '35%', right: '12%', delay: 0.6 },
+    { Icon: FaReact, color: '#61DAFB', top: '15%', left: '10%', delay: 0 },
+    { Icon: FaNodeJs, color: '#339933', top: '20%', right: '12%', delay: 0.2 },
+    { Icon: SiMongodb, color: '#47A248', bottom: '20%', left: '15%', delay: 0.4 },
+    { Icon: SiJavascript, color: '#F7DF1E', bottom: '30%', right: '10%', delay: 0.6 },
   ];
+
+  const nameVariants = {
+    initial: { y: 100, opacity: 0 },
+    animate: (i) => ({
+      y: 0,
+      opacity: 1,
+      transition: { duration: 1.2, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }
+    })
+  };
 
   return (
     <section
       id="home"
       ref={containerRef}
-      className="relative w-full h-[110vh] flex items-center justify-center overflow-hidden bg-[#050505]"
+      className="relative w-full h-[100dvh] flex items-center justify-center overflow-hidden bg-[#050505]"
     >
       {/* Background Layers */}
       <div className="absolute inset-0 z-0 text-white">
+        {/* Grain/Noise Overlay */}
+        <div className="absolute inset-0 opacity-[0.4] pointer-events-none mix-blend-overlay noise" />
+
         <motion.div
           style={{ y: y1 }}
           className="absolute top-[10%] left-[5%] w-[60vw] h-[60vw] bg-yellow-500/[0.03] blur-[120px] rounded-full"
@@ -98,120 +111,114 @@ const Hero = () => {
 
       {/* Main Content */}
       <motion.div
-        style={{ opacity, scale, x: moveX, y: moveY }}
-        className="relative z-10 flex flex-col items-center select-none"
+        style={{ opacity, scale, x: useTransform(springX, [-500, 500], [-15, 15]), y: useTransform(springY, [-500, 500], [-15, 15]) }}
+        className="relative z-10 flex flex-col items-center w-full px-6"
       >
-        {/* Available Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-10"
-        >
-          <motion.div
-            whileHover={{ scale: 1.05, borderColor: 'rgba(255,255,255,0.3)' }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative flex items-center gap-3 px-6 py-2 border border-white/10 rounded-full bg-white/5 backdrop-blur-md overflow-hidden cursor-pointer transition-colors"
-          >
-            <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse relative z-10" />
-            <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-white/50 group-hover:text-white transition-colors relative z-10">
-              Available for hire
-            </span>
-          </motion.div>
-        </motion.div>
 
-        {/* Name Headline */}
-        <div className="flex flex-col items-start translate-x-[-5vw]">
-          <div className="relative">
+
+        {/* Name Headline - Optimized for Mobile */}
+        <div className="flex flex-col items-center md:items-start text-center md:text-left relative">
+          {/* Subtle Glow behind name */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-white/[0.02] blur-[100px] rounded-full pointer-events-none" />
+
+          <div className="relative overflow-hidden">
             <motion.h1
-              initial={{ x: -100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[18vw] md:text-[15vw] font-black leading-[0.75] tracking-tighter text-yellow-400"
+              custom={0}
+              initial="initial"
+              animate="animate"
+              variants={nameVariants}
+              className="text-[20vw] md:text-[14vw] font-black leading-none tracking-tighter text-yellow-400 drop-shadow-[0_0_30px_rgba(250,204,21,0.1)]"
             >
               PARI
             </motion.h1>
           </div>
-          <div className="relative mt-[-2vw] ml-[15vw]">
+          <div className="relative mt-[-2vw] md:ml-[10vw] flex items-center">
+            <div className="relative overflow-hidden">
+              <motion.h1
+                custom={1}
+                initial="initial"
+                animate="animate"
+                variants={nameVariants}
+                className="text-[20vw] md:text-[14vw] font-black leading-none tracking-tighter text-white"
+              >
+                ARUL
+              </motion.h1>
+            </div>
+            {/* Outline Echo Effect */}
             <motion.h1
-              initial={{ x: 100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[18vw] md:text-[15vw] font-black leading-[0.75] tracking-tighter text-white"
-            >
-              ARUL
-            </motion.h1>
-            {/* Decorative Outlined Text */}
-            <motion.h1
-              style={{ x: useTransform(springX, [0, 1000], [20, -20]) }}
-              className="absolute -top-1 -left-1 text-[18vw] md:text-[15vw] font-black leading-[0.75] tracking-tighter text-stroke opacity-30 pointer-events-none"
+              style={{ x: useTransform(springX, [-500, 500], [20, -20]) }}
+              className="absolute -top-1 -left-1 text-[20vw] md:text-[14vw] font-black leading-none tracking-tighter text-stroke opacity-15 pointer-events-none hidden md:block"
             >
               ARUL
             </motion.h1>
           </div>
         </div>
 
-        {/* Professional Roles & CTA */}
+        {/* Roles & CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-12 flex flex-col items-center gap-10"
+          transition={{ duration: 1, delay: 0.8 }}
+          className="mt-10 md:mt-16 flex flex-col items-center gap-8 md:gap-12 w-full max-w-2xl"
         >
-          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-            <div className="flex items-center gap-4 text-white/30 font-mono text-[10px] md:text-sm tracking-[0.3em] uppercase">
-              <motion.span whileHover={{ color: '#FACC15' }} className="cursor-default transition-colors">Full Stack Developer</motion.span>
-              <span className="w-1 h-1 rounded-full bg-yellow-400/50" />
-              <motion.span whileHover={{ color: '#FACC15' }} className="cursor-default transition-colors">React Developer</motion.span>
-              <span className="w-1 h-1 rounded-full bg-yellow-400/50" />
-              <motion.span whileHover={{ color: '#FACC15' }} className="cursor-default transition-colors">MERN Developer</motion.span>
-            </div>
+          {/* Roles */}
+          <div className="flex flex-wrap justify-center items-center gap-3 md:gap-6 text-white/40 font-mono text-[9px] md:text-sm tracking-[0.2em] uppercase">
+            <span className="hover:text-yellow-400 transition-colors cursor-default">Full Stack</span>
+            <span className="w-1 h-1 rounded-full bg-white/20" />
+            <span className="hover:text-yellow-400 transition-colors cursor-default">React Specialist</span>
+            <span className="w-1 h-1 rounded-full bg-white/20" />
+            <span className="hover:text-yellow-400 transition-colors cursor-default">MERN Stack</span>
           </div>
 
-          {/* New Premium Primary CTA */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative px-10 py-4 bg-white text-black font-bold uppercase tracking-widest text-xs overflow-hidden rounded-full transition-all duration-300 hover:bg-yellow-400"
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              Explore Projects
-              <motion.span
-                animate={{ x: [0, 5, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
-              >
-                →
-              </motion.span>
-            </span>
-          </motion.button>
+          {/* Primary CTA with Magnetic feel */}
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            <motion.a
+              href="#projects"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              style={{ x: useTransform(springX, [-500, 500], [-5, 5]), y: useTransform(springY, [-500, 500], [-5, 5]) }}
+              className="group relative flex items-center gap-3 px-10 md:px-14 py-4 md:py-5 bg-white text-black text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] rounded-full overflow-hidden shadow-[0_20px_50px_rgba(255,255,255,0.1)] transition-shadow hover:shadow-[0_20px_50px_rgba(250,204,21,0.2)]"
+            >
+              <div className="absolute inset-0 bg-yellow-400 translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500 ease-out" />
+              <span className="relative z-10 transition-colors group-hover:text-black">Discover Work</span>
+              <FaChevronRight className="relative z-10 text-[8px] group-hover:translate-x-2 transition-transform" />
+            </motion.a>
+
+            <motion.a
+              href="#contact"
+              whileHover={{ x: 5, color: '#FACC15' }}
+              className="group flex items-center gap-2 text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-white/40 hover:text-white transition-all py-2"
+            >
+              <span className="w-8 h-[1px] bg-white/10 group-hover:w-12 group-hover:bg-yellow-400 transition-all" />
+              Start a Conversation
+            </motion.a>
+          </div>
         </motion.div>
       </motion.div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Hint */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.5 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 group cursor-pointer"
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-10 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
       >
-        <span className="text-[10px] font-mono uppercase tracking-[0.5em] text-white/20 group-hover:text-white transition-colors">Scroll</span>
-        <div className="relative w-[1px] h-24 bg-white/10 overflow-hidden">
+        <div className="relative w-[1px] h-16 md:h-24 bg-white/5 overflow-hidden">
           <motion.div
             animate={{ y: ['-100%', '100%'] }}
-            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
             className="absolute inset-0 bg-gradient-to-b from-transparent via-yellow-400 to-transparent"
           />
         </div>
       </motion.div>
 
-      {/* Location Label */}
-      <div className="absolute top-1/2 left-10 md:left-20 -translate-y-1/2 hidden lg:block">
-        <div className="flex flex-col gap-10">
-          <div className="rotate-[270deg] origin-left whitespace-nowrap">
-            <p className="text-[10px] uppercase tracking-[0.6em] font-mono text-white/10">Based in Tamil Nadu, IN</p>
+      {/* Side Label - Desktop Only */}
+      <div className="absolute top-1/2 left-8 md:left-12 -translate-y-1/2 hidden lg:block">
+        <div className="flex flex-col gap-12 items-center">
+          <div className="rotate-270 whitespace-nowrap">
+            <p className="text-[9px] uppercase tracking-[0.5em] font-medium text-white/10 [writing-mode:vertical-lr]">Portfolio © 2024</p>
           </div>
-          <div className="w-[1px] h-20 bg-white/10 mx-auto" />
+          <div className="w-[1px] h-32 bg-gradient-to-b from-white/10 to-transparent" />
         </div>
       </div>
     </section>
