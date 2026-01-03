@@ -35,8 +35,7 @@ const Contact = () => {
 
     const socials = [
         { name: 'LinkedIn', icon: <FaLinkedin />, url: 'https://www.linkedin.com/in/pari-arul-ab874b358/' },
-        { name: 'GitHub', icon: <FaGithub />, url: 'https://github.com/pariarul' },
-        { name: 'Instagram', icon: <FaInstagram />, url: '#' },
+        { name: 'Instagram', icon: <FaInstagram />, url: 'https://www.instagram.com/pari_anandha/' },
         { name: 'whatsapp', icon: <FaWhatsapp />, url: 'https://wa.me/919361430865', },
     ];
 

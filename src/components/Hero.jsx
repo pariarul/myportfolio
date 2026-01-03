@@ -173,7 +173,7 @@ const Hero = () => {
           {/* Primary CTA with Magnetic feel */}
           <div className="flex flex-col md:flex-row items-center gap-6">
             <motion.a
-              href="#projects"
+              href="https://wa.me/919361430865"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               style={{ x: useTransform(springX, [-500, 500], [-5, 5]), y: useTransform(springY, [-500, 500], [-5, 5]) }}
