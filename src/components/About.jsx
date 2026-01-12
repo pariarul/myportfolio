@@ -65,25 +65,39 @@ const About = () => {
 
           {/* Right Column: Narrative Content */}
           <div className="lg:col-span-12 xl:col-span-7 space-y-16 md:space-y-24">
-            <div>
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                className="inline-flex items-center gap-3 px-5 py-2 border border-white/10 rounded-full mb-10 bg-white/5 backdrop-blur-sm"
-              >
-                <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-white/40">The Identity</span>
-              </motion.div>
+<div>
+  <motion.div
+    initial={{ opacity: 0, x: -20 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    className="inline-flex items-center gap-3 px-5 py-2 border border-white/10 rounded-full mb-8 bg-white/5 backdrop-blur-sm"
+  >
+    <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-white/40">
+      The Identity
+    </span>
+  </motion.div>
 
-              <motion.h2
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className="text-6xl md:text-[8rem] xl:text-[10rem] font-black tracking-tighter leading-[0.8] mb-12"
-              >
-                CRAFTING <br />
-                DIGITAL <span className="text-stroke">LEGACIES</span>.
-              </motion.h2>
-            </div>
+  <motion.h2
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+    className="
+      text-5xl
+      sm:text-6xl
+      md:text-7xl
+      lg:text-[6.5rem]
+      xl:text-[8rem]
+      font-black
+      tracking-tight
+      leading-[0.9]
+      mb-10
+    "
+  >
+    SOFTWARE <br />
+    <span className="text-stroke">ENGINEER</span>.
+  </motion.h2>
+</div>
+
+
 
 <motion.div
   initial={{ opacity: 0, y: 30 }}

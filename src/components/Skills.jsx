@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+
+/* 🔹 Font Awesome Icons */
 import {
   FaHtml5,
   FaCss3Alt,
@@ -10,7 +12,11 @@ import {
   FaDocker,
   FaGithub,
   FaJava,
+  FaBootstrap,
+  FaAws,
 } from 'react-icons/fa';
+
+/* 🔹 Simple Icons */
 import {
   SiTailwindcss,
   SiExpress,
@@ -20,37 +26,80 @@ import {
   SiNextdotjs,
   SiMysql,
   SiSpringboot,
+  SiTypescript,
+  SiFirebase,
+  SiJira,
+  SiVercel,
+  SiNetlify,
+  SiRender,
+  SiRazorpay,
+  SiMui,
 } from 'react-icons/si';
+
+/* 🔹 VS Code Icons */
 import { VscJson } from 'react-icons/vsc';
+
+/* 🔹 Architecture Icon (Alternative for Microservices) */
+import { MdOutlineHub } from 'react-icons/md';
+
 
 /* =======================
    SKILLS DATA
 ======================= */
 const skills = [
- 
+
+  // 🔹 Frontend
   { name: 'JavaScript', icon: <FaJs />, color: '#F7DF1E' },
+  { name: 'TypeScript', icon: <SiTypescript />, color: '#3178C6' },
   { name: 'React', icon: <FaReact />, color: '#61DAFB' },
   { name: 'Next.js', icon: <SiNextdotjs />, color: '#ffffff' },
 
-   { name: 'HTML5', icon: <FaHtml5 />, color: '#E34F26' },
+  { name: 'HTML5', icon: <FaHtml5 />, color: '#E34F26' },
   { name: 'CSS3', icon: <FaCss3Alt />, color: '#1572B6' },
 
+  // 🔹 UI Frameworks / Libraries
+  { name: 'Tailwind CSS', icon: <SiTailwindcss />, color: '#06B6D4' },
+  { name: 'Bootstrap', icon: <FaBootstrap />, color: '#7952B3' },
+  { name: 'Material UI (MUI)', icon: <SiMui />, color: '#007FFF' },
+
+
+  // 🔹 Backend
   { name: 'Node.js', icon: <FaNodeJs />, color: '#339933' },
   { name: 'Express.js', icon: <SiExpress />, color: '#ffffff' },
   { name: 'Java', icon: <FaJava />, color: '#007396' },
-  {name: 'Spring Boot', icon: <SiSpringboot />, color: '#6DB33F'},
+  { name: 'Spring Boot', icon: <SiSpringboot />, color: '#6DB33F' },
+
+  // 🔹 Databases
   { name: 'MongoDB', icon: <SiMongodb />, color: '#47A248' },
   { name: 'MySQL', icon: <SiMysql />, color: '#4479A1' },
+  { name: 'Firebase', icon: <SiFirebase />, color: '#FFCA28' },
 
-  { name: 'JWT Auth', icon: <SiJsonwebtokens />, color: '#d63aff' },
+  // 🔹 Architecture & APIs
   { name: 'REST APIs', icon: <VscJson />, color: '#cfcfcf' },
+  { name: 'JWT Auth', icon: <SiJsonwebtokens />, color: '#d63aff' },
+  { name: 'Microservices', icon: <MdOutlineHub />, color: '#4CAF50' },
 
-  { name: 'Tailwind CSS', icon: <SiTailwindcss />, color: '#06B6D4' },
+
+  // 🔹 DevOps & Tools
   { name: 'Git', icon: <FaGitAlt />, color: '#F05032' },
   { name: 'GitHub', icon: <FaGithub />, color: '#ffffff' },
-  { name: 'Postman', icon: <SiPostman />, color: '#F24E1E' },
   { name: 'Docker', icon: <FaDocker />, color: '#2496ED' },
+  { name: 'Postman', icon: <SiPostman />, color: '#F24E1E' },
+
+  // 🔹 Project & Collaboration
+  { name: 'Jira', icon: <SiJira />, color: '#0052CC' },
+
+  // 🔹 Deployment & Cloud
+  { name: 'Vercel', icon: <SiVercel />, color: '#ffffff' },
+  { name: 'Netlify', icon: <SiNetlify />, color: '#00C7B7' },
+  { name: 'Render', icon: <SiRender />, color: '#FF9900' },
+  { name: 'AWS Basics', icon: <FaAws />, color: '#FF9900' },
+
+  // payment get way
+  { name: 'Razorpay', icon: <SiRazorpay />, color: '#2d8cff' },
+
 ];
+
 
 /* =======================
    COMPONENT
